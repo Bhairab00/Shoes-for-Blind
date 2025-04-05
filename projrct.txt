@@ -1,0 +1,52 @@
+/* This simple project describes how to make an ultrasonic alarm system using 
+LED, Ultasonic Sensor(HC-SR04) and a buzzer.*/ 
+
+//Firstly the connections of ultrasonic Sensor.Connect +5v and GND normally and trigger pin to 12 & echo pin to 13. 
+
+#define trigPin 12
+#define echoPin 11
+#define Buzzerin 4 // Connect buzzer pin to 4
+#define Buzzerout 5
+long duration; 
+long distance; //to measure the distance and time taken 
+
+void setup() { 
+        //Define the output and input objects(devices)
+        pinMode(trigPin, OUTPUT); 
+        pinMode(echoPin, INPUT);
+        pinMode(8, OUTPUT);
+        pinMode(9, OUTPUT);
+        pinMode(Buzzerin, OUTPUT);
+        pinMode(Buzzerout, OUTPUT);
+        Serial.begin (9600); 
+
+        digitalWrite(8, HIGH);
+        digitalWrite(9, LOW);
+}
+
+void loop() {
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+    duration = pulseIn(echoPin, HIGH);
+    distance = (duration/2) / 29.1;
+    //Serial.print("distance ");
+    //Serial.print(distance);
+    //when distance is greater than or equal to 200 OR less than or equal to 0,the buzzer and LED are off
+  if (distance > 15 && distance <100) 
+        {
+          Serial.println("object detected \n");
+          Serial.print("distance= ");              
+          Serial.print(distance);        //prints the distance if it is between the range 0 to 200
+          digitalWrite(Buzzerin,HIGH);
+          digitalWrite(Buzzerout, LOW);
+          
+        }
+  if (distance > 100)
+  {
+          Serial.println("no object detected");
+          digitalWrite(Buzzerin,LOW);
+          digitalWrite(Buzzerout, LOW);// play tone of 400Hz for 500 ms
+  }
+  delay(1000);
+}

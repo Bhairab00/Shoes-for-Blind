@@ -1,0 +1,18 @@
+// Define the digital pin used to control the motor
+int motorPin = 8;
+
+void setup() {
+  // Set the motor pin as an output
+  pinMode(motorPin, OUTPUT);
+}
+
+void loop() {
+  // Turn on the motor
+  digitalWrite(motorPin, HIGH);
+  // Wait for 2 seconds
+  delay(2000);
+  // Turn off the motor
+  digitalWrite(motorPin, LOW);
+  // Wait for 2 seconds
+  delay(2000);
+}
